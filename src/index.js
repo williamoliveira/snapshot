@@ -154,6 +154,7 @@ function registerCypressSnapshot (config = {}) {
   }
 
   Cypress.Commands.add('snapshot', { prevSubject: true }, snapshot)
+  Cypress.Commands.add('toMatchSnapshot', { prevSubject: true }, snapshot)
 
   global.after(function saveSnapshots () {
     if (storeSnapshot) {
