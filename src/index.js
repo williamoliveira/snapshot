@@ -22,7 +22,8 @@ function compareValues ({ expected, value }) {
   return compare({ expected, value, noColor, json })
 }
 
-function registerCypressSnapshot () {
+// noinspection UnterminatedStatementJS
+function registerCypressSnapshot (config = {}) {
   la(is.fn(global.before), 'missing global before function')
   la(is.fn(global.after), 'missing global after function')
   la(is.object(global.Cypress), 'missing Cypress object')
@@ -48,7 +49,9 @@ function registerCypressSnapshot () {
     return counters[key]
   }
 
-  const SNAPSHOT_FILENAME = 'snapshots.js'
+  const SNAPSHOT_FILENAME = config.snapshotsPath
+    || Cypress.config('snapshotsPath')
+    || 'snapshots.js'
 
   function evaluateLoadedSnapShots (js) {
     la(is.string(js), 'expected JavaScript snapshot source', js)
